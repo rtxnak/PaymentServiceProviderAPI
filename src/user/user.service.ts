@@ -34,4 +34,21 @@ export class UserService {
   async listAllUsers() {
     return this.usersRepository.find();
   }
+
+  async showOneUserById(id: number) {
+    if (
+      await this.usersRepository.exist({
+        where: {
+          id,
+        },
+      })
+    ) {
+      return this.usersRepository.findOne({
+        where: {
+          id,
+        },
+      });
+    }
+    throw new BadRequestException('Usuário não encontrado');
+  }
 }

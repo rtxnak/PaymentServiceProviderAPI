@@ -5,6 +5,7 @@ import { Roles } from '../decorators/role.decorator';
 import { Role } from '../enums/role.enum';
 import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
+import { ParamId } from '../decorators/param-id.decorator';
 
 @Roles(Role.Admin)
 @UseGuards(AuthGuard, RoleGuard)
@@ -20,5 +21,10 @@ export class UserController {
   @Get()
   async list() {
     return this.userService.listAllUsers();
+  }
+
+  @Get(':id')
+  async showOneById(@ParamId() id: number) {
+    return this.userService.showOneUserById(id);
   }
 }
