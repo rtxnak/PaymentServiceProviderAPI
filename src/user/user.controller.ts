@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { NewUserDTO } from './dto/new-user.dto';
 import { UserService } from './user.service';
 import { Roles } from '../decorators/role.decorator';
@@ -6,6 +6,7 @@ import { Role } from '../enums/role.enum';
 import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
 import { ParamId } from '../decorators/param-id.decorator';
+import { UpdatePutUserDto } from './dto/update-put-user.dto';
 
 @Roles(Role.Admin)
 @UseGuards(AuthGuard, RoleGuard)
@@ -26,5 +27,10 @@ export class UserController {
   @Get(':id')
   async showOneById(@ParamId() id: number) {
     return this.userService.showOneUserById(id);
+  }
+
+  @Put(':id')
+  async update(@Body() data: UpdatePutUserDto, @ParamId() id: number) {
+    return this.userService.update(id, data);
   }
 }

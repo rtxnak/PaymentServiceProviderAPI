@@ -4,6 +4,7 @@ import { UserEntity } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { NewUserDTO } from './dto/new-user.dto';
 import * as bcrypt from 'bcrypt';
+import { UpdatePutUserDto } from './dto/update-put-user.dto';
 
 @Injectable()
 export class UserService {
@@ -48,6 +49,23 @@ export class UserService {
           id,
         },
       });
+    }
+    throw new BadRequestException('Usuário não encontrado');
+  }
+
+  async update(id: number, data: UpdatePutUserDto) {
+    if (
+      await this.usersRepository.exist({
+        where: {
+          id,
+        },
+      })
+    ) {
+      const salt = await bcrypt.genSalt();
+      data.password = await bcrypt.hash(data.password, salt);
+
+      await this.usersRepository.update(id, data);
+      return { success: true };
     }
     throw new BadRequestException('Usuário não encontrado');
   }
