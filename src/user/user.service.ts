@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { NewUserDTO } from './dto/new-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdatePutUserDto } from './dto/update-put-user.dto';
+import { UpdatePatchUserDto } from './dto/update-patch-user.dto';
 
 @Injectable()
 export class UserService {
@@ -64,6 +65,24 @@ export class UserService {
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
 
+      await this.usersRepository.update(id, data);
+      return { success: true };
+    }
+    throw new BadRequestException('Usuário não encontrado');
+  }
+
+  async updatePartial(id: number, data: UpdatePatchUserDto) {
+    if (
+      await this.usersRepository.exist({
+        where: {
+          id,
+        },
+      })
+    ) {
+      if (data.password) {
+        const salt = await bcrypt.genSalt();
+        data.password = await bcrypt.hash(data.password, salt);
+      }
       await this.usersRepository.update(id, data);
       return { success: true };
     }
