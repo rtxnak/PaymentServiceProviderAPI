@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { Repository } from 'typeorm';
@@ -51,7 +55,7 @@ export class UserService {
         },
       });
     }
-    throw new BadRequestException('Usuário não encontrado');
+    throw new NotFoundException('Usuário não encontrado');
   }
 
   async update(id: number, data: UpdatePutUserDto) {
@@ -68,7 +72,7 @@ export class UserService {
       await this.usersRepository.update(id, data);
       return { success: true };
     }
-    throw new BadRequestException('Usuário não encontrado');
+    throw new NotFoundException('Usuário não encontrado');
   }
 
   async updatePartial(id: number, data: UpdatePatchUserDto) {
@@ -86,7 +90,7 @@ export class UserService {
       await this.usersRepository.update(id, data);
       return { success: true };
     }
-    throw new BadRequestException('Usuário não encontrado');
+    throw new NotFoundException('Usuário não encontrado');
   }
 
   async deleteUser(id: number) {
@@ -100,6 +104,6 @@ export class UserService {
       await this.usersRepository.delete(id);
       return { success: true };
     }
-    throw new BadRequestException('Usuário não encontrado');
+    throw new NotFoundException('Usuário não encontrado');
   }
 }
