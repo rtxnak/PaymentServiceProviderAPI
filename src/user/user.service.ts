@@ -30,4 +30,8 @@ export class UserService {
 
     return this.usersRepository.save(user);
   }
+
+  async listAllUsers() {
+    return this.usersRepository.find();
+  }
 }
