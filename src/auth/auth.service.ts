@@ -18,7 +18,7 @@ export class AuthService {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.cnpj,
+          role: user.role,
         },
         {
           expiresIn: '7 days',
