@@ -28,8 +28,6 @@ export class UserService {
 
     const user = this.usersRepository.create(data);
 
-    await this.usersRepository.save(user);
-
-    return { success: true };
+    return this.usersRepository.save(user);
   }
 }
