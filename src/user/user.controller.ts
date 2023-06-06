@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -46,5 +47,10 @@ export class UserController {
   @Patch(':id')
   async updatePartial(@Body() data: UpdatePatchUserDto, @ParamId() id: number) {
     return this.userService.updatePartial(id, data);
+  }
+
+  @Delete(':id')
+  async delete(@ParamId() id: number) {
+    return this.userService.deleteUser(id);
   }
 }

@@ -88,4 +88,18 @@ export class UserService {
     }
     throw new BadRequestException('Usuário não encontrado');
   }
+
+  async deleteUser(id: number) {
+    if (
+      await this.usersRepository.exist({
+        where: {
+          id,
+        },
+      })
+    ) {
+      await this.usersRepository.delete(id);
+      return { success: true };
+    }
+    throw new BadRequestException('Usuário não encontrado');
+  }
 }
