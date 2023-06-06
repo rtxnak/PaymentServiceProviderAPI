@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { UserEntity } from '../user/entity/user.entity';
 import { JwtService } from '@nestjs/jwt';
@@ -33,6 +37,16 @@ export class AuthService {
         },
       ),
     };
+  }
+
+  checkToken(token: string) {
+    try {
+      const data = this.jwtService.verify(token);
+
+      return data;
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
   async register(data: AuthRegisterDTO) {
