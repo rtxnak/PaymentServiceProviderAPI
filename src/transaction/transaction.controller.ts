@@ -26,4 +26,10 @@ export class TransactionController {
   async listAllTransactionsFromCustomer(@UserInfo() userInfo: UserEntity) {
     return this.transactionService.listAllTransactionsFromCustomer(userInfo);
   }
+
+  @Roles(Role.Company)
+  @Get('company')
+  async listAllTransactionsFromCompany(@UserInfo() userInfo: UserEntity) {
+    return this.transactionService.listAllTransactionsFromCompany(userInfo);
+  }
 }
