@@ -30,7 +30,7 @@ export class TransactionService {
     throw new BadRequestException('Compania não existente');
   }
 
-  async listAllTransactions(userInfo: UserEntity) {
+  async listAllTransactionsFromCustomer(userInfo: UserEntity) {
     const result = await this.transactionsRepository
       .createQueryBuilder('transaction')
       .where({
