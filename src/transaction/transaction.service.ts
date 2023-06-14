@@ -39,4 +39,14 @@ export class TransactionService {
       .getMany();
     return result;
   }
+
+  async listAllTransactionsFromCompany(userInfo: UserEntity) {
+    const result = await this.transactionsRepository
+      .createQueryBuilder('transaction')
+      .where({
+        companyId: userInfo.id,
+      })
+      .getMany();
+    return result;
+  }
 }
