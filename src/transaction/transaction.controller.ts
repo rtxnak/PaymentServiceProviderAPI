@@ -8,12 +8,13 @@ import { RoleGuard } from '../guards/role.guard';
 import { UserInfo } from '../decorators/user-info.decorator';
 import { UserEntity } from '../user/entity/user.entity';
 
-@Roles(Role.Admin, Role.User)
+@Roles(Role.Admin)
 @UseGuards(AuthGuard, RoleGuard)
 @Controller('transaction')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
+  @Roles(Role.User, Role.Company)
   @Post()
   async create(
     @Body() data: NewTransactionDTO,
@@ -22,6 +23,7 @@ export class TransactionController {
     return this.transactionService.createNewTransaction(data, userInfo);
   }
 
+  @Roles(Role.User)
   @Get('customer')
   async listAllTransactionsFromCustomer(@UserInfo() userInfo: UserEntity) {
     return this.transactionService.listAllTransactionsFromCustomer(userInfo);
