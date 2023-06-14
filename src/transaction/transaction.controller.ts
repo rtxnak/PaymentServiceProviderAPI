@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { NewTransactionDTO } from './dto/new-transaction.dto';
 import { Roles } from '../decorators/role.decorator';
@@ -20,5 +20,10 @@ export class TransactionController {
     @UserInfo() userInfo: UserEntity,
   ) {
     return this.transactionService.createNewTransaction(data, userInfo);
+  }
+
+  @Get('customer')
+  async listAllTransactionsFromCustomer(@UserInfo() userInfo: UserEntity) {
+    return this.transactionService.listAllTransactionsFromCustomer(userInfo);
   }
 }
