@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { UserEntity } from '../../user/entity/user.entity';
 import { PaymentMethod } from '../../enums/paymentMethod.enum';
@@ -57,4 +58,6 @@ export class TransactionEntity {
     name: 'company_id',
   })
   companyId: number;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }
