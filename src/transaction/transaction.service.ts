@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { TransactionEntity } from './entity/transaction.entity';
 import { NewTransactionDTO } from './dto/new-transaction.dto';
 import { UserEntity } from '../user/entity/user.entity';
+import { PayableService } from '../payable/payable.service';
 
 @Injectable()
 export class TransactionService {
@@ -12,6 +13,7 @@ export class TransactionService {
     private transactionsRepository: Repository<TransactionEntity>,
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
+    private readonly payableService: PayableService,
   ) {}
 
   async createNewTransaction(data: NewTransactionDTO, userInfo: UserEntity) {
@@ -25,9 +27,19 @@ export class TransactionService {
       })
     ) {
       const transaction = this.transactionsRepository.create(data);
-      return this.transactionsRepository.save(transaction);
+      const transactionCreated = await this.transactionsRepository.save(
+        transaction,
+      );
+      await this.payableService.createNewPayable(
+        transactionCreated.id,
+        transactionCreated.amount,
+        transactionCreated.paymentMethod,
+        transactionCreated.createdAt,
+      );
+      return transactionCreated;
+    } else {
+      throw new BadRequestException('Compania não existente');
     }
-    throw new BadRequestException('Compania não existente');
   }
 
   async listAllTransactionsFromCustomer(userInfo: UserEntity) {
