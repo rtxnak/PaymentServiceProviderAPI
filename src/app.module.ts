@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionEntity } from './transaction/entity/transaction.entity';
+import { PayableEntity } from './payable/entity/payable.entity';
+import { PayableModule } from './payable/payable.module';
 
 @Module({
   imports: [
@@ -19,12 +21,13 @@ import { TransactionEntity } from './transaction/entity/transaction.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [UserEntity, TransactionEntity],
+      entities: [UserEntity, TransactionEntity, PayableEntity],
       synchronize: process.env.ENV === 'development',
     }),
     UserModule,
     AuthModule,
     TransactionModule,
+    PayableModule,
   ],
   controllers: [],
   providers: [],
