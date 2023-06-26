@@ -17,4 +17,9 @@ export class PayableController {
   async listAllPayableDetailsFromCompany(@UserInfo() userInfo: UserEntity) {
     return this.payableService.listAllPayableDetailsFromCompany(userInfo);
   }
+
+  @Get('balance')
+  async listPaidBalanceFromCompany(@UserInfo() userInfo: UserEntity) {
+    return this.payableService.listBalanceFromCompany(userInfo);
+  }
 }
