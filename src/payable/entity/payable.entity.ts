@@ -19,12 +19,16 @@ export class PayableEntity {
     name: 'payment_date',
   })
   paymentDate: Date;
-  @Column({
+  @Column('decimal', {
     name: 'fee_value',
+    precision: 6,
+    scale: 2,
   })
   feeValue: number;
-  @Column({
+  @Column('decimal', {
     name: 'payable_amount',
+    precision: 6,
+    scale: 2,
   })
   payableAmount: number;
   @OneToOne(() => TransactionEntity, (transaction) => transaction.id)
