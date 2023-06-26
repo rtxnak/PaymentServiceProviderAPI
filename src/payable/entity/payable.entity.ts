@@ -36,4 +36,5 @@ export class PayableEntity {
     name: 'transaction_id',
   })
   transactionId: number;
+  status?: string;
 }

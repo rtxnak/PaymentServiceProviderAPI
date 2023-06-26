@@ -59,4 +59,28 @@ export class PayableService {
     });
     return results;
   }
+
+  async listBalanceFromCompany(userInfo: UserEntity) {
+    const payables = await this.listAllPayableDetailsFromCompany(userInfo);
+    const payablesPaid = payables.filter(
+      (payable) => payable.status === 'paid',
+    );
+    const payablesWaitingFunds = payables.filter(
+      (payable) => payable.status === 'waiting_funds',
+    );
+    const paidBalance = payablesPaid.reduce(
+      (result, payable) => (result += Number(payable.payableAmount)),
+      0,
+    );
+    const waitingFundsBalance = payablesWaitingFunds.reduce(
+      (result, payable) => (result += Number(payable.payableAmount)),
+      0,
+    );
+    return {
+      balance: {
+        available: paidBalance,
+        waiting_funds: waitingFundsBalance,
+      },
+    };
+  }
 }
