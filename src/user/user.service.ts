@@ -58,7 +58,7 @@ export class UserService {
     throw new NotFoundException('Usuário não encontrado');
   }
 
-  async update(id: number, data: UpdatePutUserDto) {
+  async updateUser(id: number, data: UpdatePutUserDto) {
     if (
       await this.usersRepository.exist({
         where: {
@@ -75,7 +75,7 @@ export class UserService {
     throw new NotFoundException('Usuário não encontrado');
   }
 
-  async updatePartial(id: number, data: UpdatePatchUserDto) {
+  async updatePartialUser(id: number, data: UpdatePatchUserDto) {
     if (
       await this.usersRepository.exist({
         where: {
