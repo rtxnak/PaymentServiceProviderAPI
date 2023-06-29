@@ -6,6 +6,7 @@ import { PaymentMethod } from '../enums/paymentMethod.enum';
 import { PayableTerm } from '../enums/payableTerm.enum';
 import { PayableTax } from '../enums/payableTax.enum';
 import { UserEntity } from '../user/entity/user.entity';
+import { NewPayableDTO } from './dto/new-payable.dto';
 
 @Injectable()
 export class PayableService {
@@ -14,12 +15,12 @@ export class PayableService {
     private payableRepository: Repository<PayableEntity>,
   ) {}
 
-  async createNewPayable(
-    transactionId: number,
-    amount: number,
-    paymentMethod: string,
-    createdAt: Date,
-  ) {
+  async createNewPayable({
+    transactionId,
+    amount,
+    createdAt,
+    paymentMethod,
+  }: NewPayableDTO) {
     const date = new Date(createdAt);
     const paymentDate =
       paymentMethod === PaymentMethod.creditCard

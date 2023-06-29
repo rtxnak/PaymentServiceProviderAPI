@@ -30,12 +30,14 @@ export class TransactionService {
       const transactionCreated = await this.transactionsRepository.save(
         transaction,
       );
-      await this.payableService.createNewPayable(
-        transactionCreated.id,
-        transactionCreated.amount,
-        transactionCreated.paymentMethod,
-        transactionCreated.createdAt,
-      );
+      const payableInfoCreation = {
+        transactionId: transactionCreated.id,
+        amount: transactionCreated.amount,
+        paymentMethod: transactionCreated.paymentMethod,
+        createdAt: new Date(transactionCreated.createdAt),
+      };
+
+      await this.payableService.createNewPayable(payableInfoCreation);
       return transactionCreated;
     } else {
       throw new BadRequestException('Compania não existente');
