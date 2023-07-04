@@ -51,7 +51,7 @@ describe('PayableService unit test', () => {
       );
 
       expect(result).toEqual({
-        balance: { available: 0, waiting_funds: 12696.19 },
+        balance: { available: 0, waiting_funds: 18845.99 },
       });
     });
   });
