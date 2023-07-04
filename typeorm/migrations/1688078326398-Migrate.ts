@@ -63,7 +63,7 @@ export class Migrate1688078326398 implements MigrationInterface {
             unsigned: true,
           },
           {
-            name: 'createdAt',
+            name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP()',
           },
