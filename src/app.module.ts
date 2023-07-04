@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user/entity/user.entity';
 import { UserModule } from './user/user.module';
@@ -8,6 +8,7 @@ import { TransactionModule } from './transaction/transaction.module';
 import { TransactionEntity } from './transaction/entity/transaction.entity';
 import { PayableEntity } from './payable/entity/payable.entity';
 import { PayableModule } from './payable/payable.module';
+import { SeedingService } from './seed/seeding.service';
 
 @Module({
   imports: [
@@ -30,6 +31,12 @@ import { PayableModule } from './payable/payable.module';
     PayableModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [SeedingService],
 })
-export class AppModule {}
+export class AppModule implements OnApplicationBootstrap {
+  constructor(private readonly seedingService: SeedingService) {}
+
+  async onApplicationBootstrap(): Promise<void> {
+    await this.seedingService.seed();
+  }
+}
