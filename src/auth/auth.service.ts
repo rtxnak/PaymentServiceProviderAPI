@@ -10,6 +10,7 @@ import { AuthRegisterDTO } from './dto/auth-register.dto';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from '../enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +51,9 @@ export class AuthService {
   }
 
   async register(data: AuthRegisterDTO) {
-    delete data.role;
+    if (data.role === Role.Admin) {
+      delete data.role;
+    }
     const user = await this.userService.createNewUser(data);
     return this.createToken(user);
   }
