@@ -18,8 +18,8 @@ export const payableEntityListMock: PayableEntity[] = [
   {
     id: 3,
     paymentDate: new Date('2023-07-26 17:43:23'),
-    feeValue: 6.8,
-    payableAmount: 219.75,
+    feeValue: 197.0,
+    payableAmount: 6369.55,
     transactionId: 3,
   },
 ];
