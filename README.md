@@ -1,73 +1,138 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Payment Service Provider API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## About project
+This project was developed to practice REST API creation [skills](#skills) with NestJs. Its a API connected to a relational database, the API's main function is to simulate a dynamic of creation and recording of transactions and payments between users and companies, and as a support function, it creates and manipulates users.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The business rules were based on the challenge in the link: https://github.com/pagarme/vagas/tree/master/desafios/software-engineer-backend
 
-## Description
+## Skills 
+- OOP in Typescript is the base language;
+- NestJs framework;
+- TypeORM for MYSQL database modeling;
+- Unit and E2E tests with JEST
+- Swagger to create API documentation;
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Opening the app locally
 
-## Installation
+On terminal:
 
+1. Please install and check the version of the following services on your system:
+
+[NPM & Node](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 ```bash
-$ npm install
+  npm -v
+```
+```bash
+  node -v
+```
+[MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html)
+```bash
+  mysql --version
 ```
 
-## Running the app
-
+2. Clone the repository in your preferred folder
 ```bash
-# development
-$ npm run start
+  git clone git@github.com:rtxnak/PaymentServiceProviderAPI.git
+```
+3. Install the dependencies
+  * move to app folder:
+    ```bash
+       cd PaymentServiceProviderAPI/
+    ```
+  * Install dependencies:
+    ```bash
+       npm install  
+    ```
+4. Create enviroment file for database conection:
+  * create the file _.env_ and _.test.env_ based on the exemple:
+    ```bash
+      ENV="development"
+      DB_USERNAME="root"
+      DB_PASSWORD="root@123"
+      DB_DATABASE="pspnestjs"
+      DB_HOST="localhost"
+      DB_PORT="3306"
+      JWT_SECRET="Wfw!aX60yMVp9jH853!3ERMX$M6pCiIJ"
+    ```
+  * move back to main folder:
+    ```bash
+       cd ..
+    ```
+5 Run the application
+  * Start the api:
+    ```bash
+       npm run dev
+    ```
 
-# watch mode
-$ npm run start:dev
+6. The API can be accessed through:
 
-# production mode
-$ npm run start:prod
+    http://localhost:3000/
+   
+
+7. The API documentation can be acessed through:
+
+   http://localhost:3000/api
+   
+8. To run tests:
+  * Unit tests:
+    ```bash
+       npm test
+    ```
+  * E2E tests:
+    ```bash
+       npm run test:e2e 
+    ```
+
+
+## Opening the app locally with Docker
+ 
+On terminal:
+
+1. Please install and check the version of the following services on your system:
+
+[Docker](https://docs.docker.com/get-docker/)
+```bash
+  docker -v
+```
+[Docker-Compose](https://docs.docker.com/compose/install/)
+```bash
+  docker-compose -v
 ```
 
-## Test
-
+2. Clone the repository in your preferred folder
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  git clone git@github.com:rtxnak/PaymentServiceProviderAPI.git
 ```
 
-## Support
+3. Move to app folder
+```bash
+  cd PaymentServiceProviderAPI/
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. Run the application with docker-compose
+```bash
+  docker-compose up --build 
+```
 
-## Stay in touch
+5. The API can be accessed through:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    http://localhost:3000/
+   
+6. the API documentation can be acessed through:
 
-## License
+   http://localhost:3000/api
 
-Nest is [MIT licensed](LICENSE).
+7. To run tests:
+  * Unit tests:
+    ```bash
+       npm test
+    ```
+  * E2E tests:
+    ```bash
+       npm run test:e2e 
+    ```
+
+8. Finishing the application
+```bash
+  docker-compose down
+```
