@@ -54,10 +54,6 @@ On terminal:
       DB_PORT="3306"
       JWT_SECRET="Wfw!aX60yMVp9jH853!3ERMX$M6pCiIJ"
     ```
-  * move back to main folder:
-    ```bash
-       cd ..
-    ```
 5 Run the application
   * Start the api:
     ```bash
